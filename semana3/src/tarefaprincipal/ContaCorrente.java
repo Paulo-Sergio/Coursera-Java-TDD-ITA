@@ -2,15 +2,15 @@ package tarefaprincipal;
 
 public class ContaCorrente {
 
-	private int numero;
+	private String numero;
 	private double saldo;
 
-	public ContaCorrente(int numero, double saldo) {
+	public ContaCorrente(String numero, double saldo) {
 		this.numero = numero;
 		this.saldo = saldo;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 		return numero;
 	}
 
@@ -18,4 +18,12 @@ public class ContaCorrente {
 		return saldo;
 	}
 
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
+	}
+	
 }
