@@ -4,16 +4,20 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 public class Customer {
-	
+
 	private String _name;
 	private Vector _rentals = new Vector();
+	private int frequentRenterPoints = 0;
+	private double totalAmount = 0.0;
 
 	public Customer(String name) {
 		_name = name;
 	}
 
-	public void addRental(Rental arg) {
-		_rentals.addElement(arg);
+	public void addRental(Rental rental) {
+		_rentals.addElement(rental);
+		frequentRenterPoints += rental.getFrequentRenterPoints();
+		totalAmount += rental.getAmount();
 	}
 
 	public String getName() {
@@ -21,23 +25,22 @@ public class Customer {
 	}
 
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
 		Enumeration rentals = _rentals.elements();
 		String result = "Rental Record for " + getName() + "\n";
 		while (rentals.hasMoreElements()) {
 			Rental each = (Rental) rentals.nextElement();
-			double thisAmount = each.getAmount();
-			frequentRenterPoints += each.getFrequentRenterPoints();
-			//show figures for this rental
-			result += "\t" + each.getMovie().getTitle() + "\t"
-					+ String.valueOf(thisAmount) + "\n";
-			totalAmount += thisAmount;
+			result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getAmount()) + "\n";
 		}
-		//add footer lines
-		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints)
-				+ " frequent renter points";
+		result += "Amount owed is " + String.valueOf(getTotalAmount()) + "\n";
+		result += "You earned " + String.valueOf(getTotalFrequentRenterPoints()) + " frequent renter points";
 		return result;
+	}
+
+	public int getTotalFrequentRenterPoints() {
+		return frequentRenterPoints;
+	}
+
+	public double getTotalAmount() {
+		return totalAmount;
 	}
 }
